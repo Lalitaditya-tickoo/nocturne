@@ -1,14 +1,14 @@
-export type City = {
+export interface City {
   id: string;
   name: string;
   slug: string;
-  state: string | null;
+  state: string;
   country: string;
-  lat: number | null;
-  lng: number | null;
-};
+  lat: number;
+  lng: number;
+}
 
-export type Venue = {
+export interface Venue {
   id: string;
   city_id: string;
   name: string;
@@ -25,16 +25,17 @@ export type Venue = {
   website: string | null;
   hero_image: string | null;
   gallery: string[] | null;
+  opening_hours: string | null;
   vibe_tags: string[];
   is_featured: boolean;
   is_published: boolean;
-};
+}
 
-export type Cocktail = {
+export interface Cocktail {
   id: string;
   venue_id: string;
   name: string;
-  slug: string | null;
+  slug: string;
   description: string | null;
   price_inr: number | null;
   base_spirit: string | null;
@@ -42,7 +43,12 @@ export type Cocktail = {
   ingredients: string[];
   image_url: string | null;
   is_signature: boolean;
-};
+}
 
-export type VenueWithCity = Venue & { cities: City | null };
-export type VenueWithCocktails = Venue & { cocktails: Cocktail[]; cities: City | null };
+export interface VenueWithCity extends Venue {
+  cities: City | null;
+}
+
+export interface VenueWithCocktails extends VenueWithCity {
+  cocktails: Cocktail[];
+}
